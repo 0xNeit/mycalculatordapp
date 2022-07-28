@@ -38,4 +38,13 @@ describe('mycalculatordapp', () => {
         const account = await program.account.calculator.fetch(calculator.publicKey)
         assert.ok(account.result.eq(new anchor.BN(8)))
     })
+    it('Multiplies one number by another', async() => {
+        await program.rpc.mul(new anchor.BN(3), new anchor.BN(3), {
+            accounts: {
+                calculator: calculator.publicKey
+            }
+        })
+        const account = await program.account.calculator.fetch(calculator.publicKey)
+        assert.ok(account.result.eq(new anchor.BN(9)))
+    })
 })
